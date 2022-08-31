@@ -16,11 +16,9 @@ public static class ConfigurationService
             var path = new DirectoryInfo(Directory.GetCurrentDirectory());
             while (path != null && !path.GetDirectories("config").Any())
             {
-                Console.WriteLine(path.FullName);
                 path = path.Parent;
             }
 
-            Console.ReadKey();
             s_configDirectoryPath = Path.Combine(path?.FullName!, "config");
         }
 

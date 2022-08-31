@@ -1,3 +1,6 @@
 {
-  "test": "test1"
+  "TestConfig": {
+    "Test": "test1"
+  }
+  
 }
