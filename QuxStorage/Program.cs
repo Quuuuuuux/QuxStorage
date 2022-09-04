@@ -11,11 +11,9 @@ builder.Host.ConfigureAppConfiguration((_, config) => {
     config.AddEnvironmentVariables();
 }).ConfigureServices((hostConfig, config) => { config.BindConfigFiles(hostConfig.Configuration); });
 
+builder.Services.AddControllers();
 
 var app = builder.Build();
-app.MapGet("/", (IServiceProvider provider) => {
-    var a = provider.GetService<TestConfig>()!;
-    Console.WriteLine(provider.GetService<TestConfig>()!.Test);
-    return provider.GetService<TestConfig>()!.Test;
-});
+
+app.MapControllers();
 app.Run();
