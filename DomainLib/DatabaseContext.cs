@@ -6,16 +6,20 @@ namespace DomainLib;
 public class DatabaseContext : DbContext
 {
     public DatabaseContext(DbContextOptions<DatabaseContext> options): base(options){}
+
+    public DbSet<Credentials> CredentialsPairs => Set<Credentials>();
     
     protected override void OnModelCreating(ModelBuilder modelBuilder) {}
 
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
+        AddTimestamps();
         return base.SaveChanges(acceptAllChangesOnSuccess);
     }
 
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
     {
+        AddTimestamps();
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 

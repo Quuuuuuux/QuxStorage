@@ -13,6 +13,7 @@ builder.Host.ConfigureAppConfiguration((_, config) => {
 
 builder.Services.AddControllers();
 
+
 var app = builder.Build();
 
 app.MapControllers();
