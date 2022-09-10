@@ -1,8 +1,8 @@
 namespace DomainLib.Entities;
 
-public class Credentials : BaseEntity 
+public class CredentialsPair : BaseEntity 
 {
-    public Credentials(){}
+    public CredentialsPair(){}
 
     #region Plain
 

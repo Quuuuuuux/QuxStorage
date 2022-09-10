@@ -1,5 +1,5 @@
 {
   "DatabaseConfig": {
-    "ConnectionString": "Host=localhost;Port=5432;Database=qux;Username=postgres;Password=qux123!"
+    "ConnectionString": "Host=localhost;Port=5432;Database=qux_storage;Username=postgres;Password=qux123!"
   }
 }

@@ -7,7 +7,11 @@ public class DatabaseContext : DbContext
 {
     public DatabaseContext(DbContextOptions<DatabaseContext> options): base(options){}
 
-    public DbSet<Credentials> CredentialsPairs => Set<Credentials>();
+    #region DbSets
+
+    public DbSet<CredentialsPair> CredentialsPairs => Set<CredentialsPair>();
+
+    #endregion
     
     protected override void OnModelCreating(ModelBuilder modelBuilder) {}
 
@@ -17,7 +21,7 @@ public class DatabaseContext : DbContext
         return base.SaveChanges(acceptAllChangesOnSuccess);
     }
 
-    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new())
     {
         AddTimestamps();
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
@@ -25,7 +29,15 @@ public class DatabaseContext : DbContext
 
     private void AddTimestamps()
     {
-        var entities = ChangeTracker.Entries<BaseEntity>()
-            .Where(x => x.State is EntityState.Added or EntityState.Modified);
+        var entities = ChangeTracker.Entries()
+            .Where(x => x.Entity is BaseEntity && x.State is EntityState.Added or EntityState.Modified);
+
+        foreach (var entity in entities)
+        {
+            var now = DateTime.UtcNow;
+            if (entity.State == EntityState.Added)
+                ((BaseEntity) entity.Entity).CreatedAt = now;
+            ((BaseEntity) entity.Entity).UpdatedAt = now;
+        }
     }
 }

@@ -27,7 +27,7 @@ public class TestController : Controller
     [HttpPost("TestCreds")]
     public void SaveCredsTest(string login, string password)
     {
-        var creds = new Credentials()
+        var creds = new CredentialsPair()
         {
             Login = login,
             Password = password
