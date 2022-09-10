@@ -1,3 +1,4 @@
+using DomainLib;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Utils.Configurations;
 using Utils.Configurations.ConfigurationClasses;
@@ -12,6 +13,9 @@ builder.Host.ConfigureAppConfiguration((_, config) => {
 }).ConfigureServices((hostConfig, config) => { config.BindConfigFiles(hostConfig.Configuration); });
 
 builder.Services.AddControllers();
+
+builder.Services.AddDomainLib(builder.Configuration);
+
 
 var app = builder.Build();
 
